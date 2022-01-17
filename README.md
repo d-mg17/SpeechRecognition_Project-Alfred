@@ -6,7 +6,10 @@
 + Searches in wikipedia.
 + Plays videos on YouTube.
 + Tells jokes (most are programming related).
-- Can send a message through WhatsApp 
-..* _Feature in process_
+
+### Features in progress:
+1. Send a message through WhatsApp.
+2. Open a web page on your default browser.
+3. Movement recognition (feature in future project _Simple_Security_Cam_)
 
 ###### Inspiration from @ProgrammingHero1
