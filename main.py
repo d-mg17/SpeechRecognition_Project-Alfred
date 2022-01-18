@@ -50,9 +50,9 @@ def take_command():
         with sr.Microphone() as source:
             print("Listening...")
             listener.dynamic_energy_threshold = False
-            listener.energy_threshold = 400
-            # listener.pause_threshold = 3
-            voice = listener.listen(source, timeout=3)
+            listener.energy_threshold = 350
+            listener.pause_threshold = 2
+            voice = listener.listen(source)
             command = listener.recognize_google(voice)
             command = command.lower()
             if "alfred" in command:
@@ -60,8 +60,6 @@ def take_command():
                 # print(command)
     except Exception as e:
         print("An error has occurred: ", e)
-        wait()
-        print("Check your selected Mic, that could be the problem")
         wait()
         print("Try again later...")
         exit()
@@ -173,13 +171,14 @@ def power_off(command):
 
 
 def open_web(web_page):
-    webbrowser.GenericBrowser.open_new(web_page)
+    web_page = web_page.replace("open ", "")
+    if "whatsapp" == web_page:
+        webbrowser.open("web.whatsapp.com")
+    webbrowser.open(f"www.{web_page}.com")
 
 
 def run():
     command = take_command()
-    if command == "None":
-        power_off(command)
 
     print(command)
 
@@ -213,8 +212,15 @@ def run():
     #     send_message()
     #     wait()
 
-    elif "goodbye" in command or "that's all" in command:
+    elif "power off" in command or "goodbye" in command:
         power_off(command)
+
+    elif "open" in command:
+        open_web(command)
+
+    elif "wait" in command:
+        time.sleep(30)
+        pass
 
     else:
         talk("Didn't get that. Can you say it again please?...")
